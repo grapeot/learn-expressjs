@@ -5,7 +5,8 @@ h1 Edit user details
 p.
   The user has the name as #{user.name} and the email as #{user.email}.
 
-form(action="/edit_rest" method="get")
+form(action="/api/edit" method="post")
+    input(type='hidden' value='#{id}' name="id")
     span(style="width:200px") New name
     input(type='input' value='#{user.name}' name="name")
     br

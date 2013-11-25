@@ -1,7 +1,13 @@
+var data = require('../data');
 
-/*
- * GET users listing.
- */
+module.exports = {
+    'edit': function(req, res) {
+        var newName = req.body.name,
+            newEmail = req.body.email,
+            id = req.body.id;
+        data.users[id].name = newName;
+        data.users[id].email = newEmail;
 
-exports.list = function(req, res){ res.render('users', { 'users' : users } ); }; 
-exports.edit = function(req, res) { res.render('edit', { 'users': users, id: req.params.id }); };
+        res.redirect('/users');
+    }
+};
