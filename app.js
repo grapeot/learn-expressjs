@@ -2,7 +2,6 @@ var express = require('express');
 var routes = require('./routes'),
     user = require('./routes/user'),
     api = require('./routes/api');
-console.log(user);
 var http = require('http');
 var path = require('path');
 
