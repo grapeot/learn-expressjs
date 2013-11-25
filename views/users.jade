@@ -1,0 +1,18 @@
+h1 List of the users
+
+table
+    tr
+        td
+            strong Name
+        td
+            strong Email
+        td
+            strong Action
+    - each user in users
+        tr
+            td
+                p= user.name
+            td
+                p= user.email
+            td
+                a(href="/users/edit/"+user.id) Edit
