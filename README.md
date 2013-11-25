@@ -1,4 +1,4 @@
 learn-expressjs
 ===============
 
-A experimental repo for leaning express.js
+An experimental repo for leaning express.js
