@@ -4,8 +4,6 @@ var routes = require('./routes'),
     api = require('./routes/api');
 var http = require('http');
 var path = require('path');
-
-// http://nodejs.org/api.html#_child_processes
 var sys = require('sys')
 var exec = require('child_process').exec;
 var child;

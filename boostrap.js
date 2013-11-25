@@ -2,7 +2,9 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var sys = require('sys')
-var spawn = require('child_process').spawn;
+var cp = require('child_process'),
+    spawn = cp.spawn,
+    exec = cp.exec;
 var child;
 
 var app = express();
@@ -24,8 +26,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', function(req, res) {
-    spawn('git', 'pull');   // git pull
+app.post('/', function(req, res) {
+    spawn('git', ['pull']);   // git pull
     child.kill();
     startApp();
     res.send('ok.');
