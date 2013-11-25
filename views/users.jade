@@ -1,18 +1,22 @@
-h1 List of the users
+extend layout
 
-table
-    tr
-        td
-            strong Name
-        td
-            strong Email
-        td
-            strong Action
-    - each user in users
+block content
+
+    h1 List of the users
+
+    table
         tr
             td
-                p= user.name
+                strong Name
             td
-                p= user.email
+                strong Email
             td
-                a(href="/users/edit/"+user.id) Edit
+                strong Action
+        - each user in users
+            tr
+                td
+                    p= user.name
+                td
+                    p= user.email
+                td
+                    a(href="/users/edit/"+user.id) Edit
