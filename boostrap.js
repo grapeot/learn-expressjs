@@ -25,6 +25,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', function(req, res) {
+    spawn('git', 'pull');   // git pull
     child.kill();
     startApp();
     res.send('ok.');
