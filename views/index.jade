@@ -1,7 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  
-  a(href="/users") users
+    h1= title
+    p Welcome to #{title}
+
+    ul
+        li
+            a(href="/users") Data change demo
+        li
+            a(href="/upload.html") File upload demo
+        li
+            a(href="/iphone.html") iPhone camera demo
+        li
+            a(href="/cross-process.html") Cross-process demo
