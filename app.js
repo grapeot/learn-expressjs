@@ -1,13 +1,9 @@
 var express = require('express');
 var routes = require('./routes'),
     api = require('./routes/api'),
-    fs = require('fs'),
     http = require('http'),
     path = require('path'),
-    sys = require('sys'),
-    cp = require('child_process'),
-    exec = cp.exec,
-    spawn = cp.spawn;
+    sys = require('sys');
 var child;
 
 var app = express();
