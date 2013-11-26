@@ -1,11 +1,13 @@
 var express = require('express');
 var routes = require('./routes'),
-    user = require('./routes/user'),
-    api = require('./routes/api');
-var http = require('http');
-var path = require('path');
-var sys = require('sys')
-var exec = require('child_process').exec;
+    api = require('./routes/api'),
+    fs = require('fs'),
+    http = require('http'),
+    path = require('path'),
+    sys = require('sys'),
+    cp = require('child_process'),
+    exec = cp.exec,
+    spawn = cp.spawn;
 var child;
 
 var app = express();
@@ -14,6 +16,7 @@ var app = express();
 app.set('port', process.env.PORT || 3010);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.use(express.bodyParser({ keepExtensions: true, uploadDir: "public" }))
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -27,22 +30,12 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// set up the routes
 app.get('/', routes.index);
-// app.get('/users', function(req, res){ res.render('users'); });
-app.get('/users', user.list);
-app.get('/users/edit/:id', user.edit);
-app.get('/bootstrap', function(req, res) {
-    // executes `pwd`
-    child = exec("pwd", function (error, stdout, stderr) {
-        sys.print('stdout: ' + stdout);
-        sys.print('stderr: ' + stderr);
-        if (error !== null) {
-            console.log('exec error: ' + error);
-        }
-    });
-    res.send('ok.');
-});
+app.get('/users', routes.list);
+app.get('/users/edit/:id', routes.edit);
 app.post('/api/edit', api.edit);
+app.post('/upload', routes.upload);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
