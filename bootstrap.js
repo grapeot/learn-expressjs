@@ -1,17 +1,11 @@
 var express = require('express'),
-    http = require('http');
-var cp = require('child_process'),
+    http = require('http'),
+    cp = require('child_process'),
     spawn = cp.spawn,
-    exec = cp.exec;
-var child;
-
-var app = express();
-
-// all environments
-var port = 3011;
-
-app.get('/', restartApp);
-app.post('/', restartApp);
+    exec = cp.exec,
+    app = express();
+var child, 
+    port = 3011;
 
 function restartApp(req, res)
 {
@@ -34,6 +28,8 @@ function startApp()
     });
 }
 
+app.get('/', restartApp);
+app.post('/', restartApp);
 startApp();
 http.createServer(app).listen(port, function(){
     console.log('Express server listening on port ' + port);
