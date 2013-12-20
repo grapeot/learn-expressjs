@@ -1,5 +1,6 @@
 var express = require('express');
 var routes = require('./routes'),
+    coffee = require('./coffee'),
     api = require('./routes/api'),
     http = require('http'),
     path = require('path'),
@@ -32,6 +33,7 @@ app.get('/users', routes.list);
 app.get('/users/edit/:id', routes.edit);
 app.post('/api/edit', api.edit);
 app.post('/upload', routes.upload);
+app.get('/coffee', coffee.index);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

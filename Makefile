@@ -1,4 +1,8 @@
-app:
+app: compile
 	node app.js
-bootstrap:
+bootstrap: compile
 	node bootstrap.js
+compile:
+	coffee -c coffee.coffee
+clean:
+	rm coffee.js
