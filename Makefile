@@ -3,6 +3,6 @@ app: compile
 bootstrap: compile
 	node bootstrap.js
 compile:
-	coffee -c coffee.coffee
+	coffee -c routes/coffee.coffee
 clean:
 	rm coffee.js

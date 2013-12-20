@@ -1,6 +1,6 @@
 var express = require('express');
 var routes = require('./routes'),
-    coffee = require('./coffee'),
+    coffee = require('./routes/coffee'),
     api = require('./routes/api'),
     http = require('http'),
     path = require('path'),
