@@ -10,6 +10,8 @@ var child,
 function restartApp(req, res)
 {
     spawn('git', ['pull']);   // git pull
+    spawn('rm', ['routes/coffee.js']);
+    spawn('make', ['compile']);
     child.kill();
     startApp();
     res.send('ok.');
