@@ -2,3 +2,8 @@ extends layout
 
 block content
     p= info
+
+    form(action='/coffee' method='get')
+        span(style='padding-right: 10px') id:
+        input(type='input' name='id')
+        input(type='submit')
