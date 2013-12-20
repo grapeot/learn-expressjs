@@ -5,4 +5,4 @@ bootstrap: compile
 compile:
 	coffee -c routes/coffee.coffee
 clean:
-	rm coffee.js
+	rm routes/coffee.js
