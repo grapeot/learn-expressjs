@@ -16,7 +16,11 @@ module.exports = {
     'index': function(req, res){ res.render('index', { title: 'Express' }); },
     'list': function(req, res){ res.render('users', { 'users' : data.users } ); },
     'edit': function(req, res) { res.render('edit', { 'users': data.users, id: req.params.id }); },
-    'cross_index': function(req, res) { res.render('cross-index'); },
+    'cross_index': function(req, res) {
+        // generate qr code
+
+        res.render('cross-index'); 
+    },
     'cross_popup': function(req, res) { res.render('cross-popup'); },
     'cross_popup_hit': function (req, res) {
         data.ajaxRes.write('document.getElementById("text").innerHTML = "Logged on!";');
