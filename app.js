@@ -34,6 +34,10 @@ app.get('/users/edit/:id', routes.edit);
 app.post('/api/edit', api.edit);
 app.post('/upload', routes.upload);
 app.get('/coffee', coffee.index);
+app.get('/cross', routes.cross_index);
+app.get('/cross/popup', routes.cross_popup);
+app.get('/cross/popup_hit', routes.cross_popup_hit);
+app.get('/cross/ajax', routes.cross_index_ajax);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

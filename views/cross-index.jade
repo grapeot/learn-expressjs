@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+    p This is a demo project similar to 
+        a(href="http://wx.qq.com/" target="_blank") WeChat's web log in interface
+        . We wish to demonstrate how different webpages/sessions (potentially one on the desktop and one on the mobile) can communicate with each other, thus to achieve a smoother user experience.
+
+    p Click the following link to open a second (pop-up) window, which conceptually should be done on your mobile phone. When you follow the instructions (i.e. click a button) on the pop-up window, which stands for doing some extra interactions on the mobile end, this webpage will prompt the success of log in.
+
+    a(href="/cross/popup" target="_blank") Launch a pop-up window
+
+    p(id="text" style='color:red') No status update. Click the link above.
+
+    script(type='text/javascript' src='/cross/ajax')
