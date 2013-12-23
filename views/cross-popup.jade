@@ -5,4 +5,5 @@ block content
     p Click the button to see the change in the original window.
 
     form(action='/cross/popup_hit' method='get')
+        input(type="hidden" name="id" value="#{id}")
         input(type='submit')

@@ -9,11 +9,11 @@ block content
     p Currently the load of this page will time out in two minutes. But it shouldn't be hard to prevent such timeout.
 
     p If you're on a desktop, 
-        a(href="/cross/popup" target="_blank") launch a pop-up window.
+        a(href="/cross/popup?id=#{rand}" target="_blank") launch a pop-up window.
         Otherwise use our iPhone client to scan the following QR code
         br
         img(src="#{qr}" style="min-width: 300px" alt="")
 
     p(id="text" style='color:red') No status update. Click the link above or snap the QR code.
 
-    script(type='text/javascript' src='/cross/ajax')
+    script(type='text/javascript' src='/cross/ajax?id=#{rand}')

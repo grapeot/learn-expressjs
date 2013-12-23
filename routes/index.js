@@ -20,18 +20,29 @@ module.exports = {
     'cross_index': function(req, res) {
         // generate qr code
         var rand = Math.floor(Math.random() * 10000);
-        QRCode.draw('http://lab.grapeot.me:3010/cross/2?id=' + rand, {}, function(error, canvas){
-                res.render('cross-index', { qr: canvas.toDataURL() }); 
+        QRCode.draw('http://lab.grapeot.me:3010/cross/popup_hit?id=' + rand, {}, function(error, canvas){
+                res.render('cross-index', { qr: canvas.toDataURL(), rand: rand }); 
         });
     },
-    'cross_popup': function(req, res) { res.render('cross-popup'); },
+    'cross_popup': function(req, res) { 
+        var id = req.query.id;
+        console.log(id);
+        res.render('cross-popup', { id: id }); 
+    },
     'cross_popup_hit': function (req, res) {
-        data.ajaxRes.write('document.getElementById("text").innerHTML = "Logged on!";');
-        data.ajaxRes.end();
+        var id = parseInt(req.query.id);
+        if (isNaN(id)) {
+            res.send('Failed.');
+            return;
+        }
+        data.ajaxRes[id].write('document.getElementById("text").innerHTML = "Logged on!";');
+        data.ajaxRes[id].end();
         res.render('cross-popup-hit');
     },
     'cross_index_ajax': function (req, res) {
-        data.ajaxRes = res;
+        if (data.ajaxRes == undefined); data.ajaxRes = {};
+        var id = parseInt(req.query.id);
+        data.ajaxRes[id] = res;
         res.writeHead(200, {
             'Content-Type': 'text/javascript',
             'Cache-Control': 'no-cache',
