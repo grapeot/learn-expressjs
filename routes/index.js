@@ -1,6 +1,7 @@
 var data = require('../data'),
     path = require('path'),
     cp = require('child_process'),
+    QRCode = require('qrcode'),
     folk = cp.folk,
     exec = cp.exec,
     spawn = cp.spawn;
@@ -18,8 +19,10 @@ module.exports = {
     'edit': function(req, res) { res.render('edit', { 'users': data.users, id: req.params.id }); },
     'cross_index': function(req, res) {
         // generate qr code
-
-        res.render('cross-index'); 
+        var rand = Math.floor(Math.random() * 10000);
+        QRCode.draw('http://lab.grapeot.me:3010/cross/2?id=' + rand, {}, function(error, canvas){
+                res.render('cross-index', { qr: canvas.toDataURL() }); 
+        });
     },
     'cross_popup': function(req, res) { res.render('cross-popup'); },
     'cross_popup_hit': function (req, res) {

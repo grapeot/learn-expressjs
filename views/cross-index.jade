@@ -8,8 +8,12 @@ block content
     p Click the following link to open a second (pop-up) window, which conceptually should be done on your mobile phone. When you follow the instructions (i.e. click a button) on the pop-up window, which stands for doing some extra interactions on the mobile end, this webpage will prompt the success of log in.
     p Currently the load of this page will time out in two minutes. But it shouldn't be hard to prevent such timeout.
 
-    a(href="/cross/popup" target="_blank") Launch a pop-up window
+    p If you're on a desktop, 
+        a(href="/cross/popup" target="_blank") launch a pop-up window.
+        Otherwise use our iPhone client to scan the following QR code
+        br
+        img(src="#{qr}" style="min-width: 300px" alt="")
 
-    p(id="text" style='color:red') No status update. Click the link above.
+    p(id="text" style='color:red') No status update. Click the link above or snap the QR code.
 
     script(type='text/javascript' src='/cross/ajax')
