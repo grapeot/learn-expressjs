@@ -77,7 +77,6 @@ module.exports = {
                     toWrite = toWrite + data;
             } );
             pyg.on('exit', function() {
-                console.log(toWrite);
                 res.render('gist_get', { txt: toWrite });
             });
 
