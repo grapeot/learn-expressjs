@@ -21,7 +21,7 @@ block content
     div(id='status') Initialized. Connecting...
 
     script.
-        var socket = io.connect('http://nobody.grapeot.me:3010/');
+        var socket = io.connect();
         socket.on('connect', function(data) {
             setStatus('Connected.');
         });
