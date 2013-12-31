@@ -69,9 +69,9 @@ io.sockets.on('connection', function(sock) {
     sock.on('disconnect', function() {
         console.log('Socket #' + sock.id + ' Disconnected.');
         _data.chat_num--;
+        sock.broadcast.emit('send', { user: 'System', message: 'A user leaves the chatroom.' });
     });
 });
-
 
 server.listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
