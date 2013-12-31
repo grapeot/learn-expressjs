@@ -12,9 +12,12 @@ function restartApp(req, res)
     spawn('git', ['pull']);   // git pull
     spawn('rm', ['./routes/coffee.js']);
     spawn('coffee', ['./routes/coffee.coffee']);
-    child.kill();
-    startApp();
-    res.send('ok.');
+    var npmcp = spawn('npm', ['install']);
+    npmcp.on('close', function() {
+        child.kill();
+        startApp();
+        res.send('ok.');
+    });
 }
 
 function startApp()
