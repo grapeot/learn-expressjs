@@ -49,5 +49,10 @@ module.exports = {
             'Connection': 'close',
             'Pragma': 'no-cache'
         });
+    },
+
+    'gist_new': function (req, res) {
+    },
+    'gist_get': function (req, res) {
     }
 };

@@ -38,6 +38,8 @@ app.get('/cross', routes.cross_index);
 app.get('/cross/popup', routes.cross_popup);
 app.get('/cross/popup_hit', routes.cross_popup_hit);
 app.get('/cross/ajax', routes.cross_index_ajax);
+app.get('/gist/', routes.gist_new);
+app.get('/gist/:id', routes.gist_get);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
