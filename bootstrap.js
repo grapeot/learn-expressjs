@@ -10,13 +10,16 @@ var child,
 function restartApp(req, res)
 {
     spawn('git', ['pull']);   // git pull
-    spawn('rm', ['./routes/coffee.js']);
-    spawn('coffee', ['./routes/coffee.coffee']);
-    var npmcp = spawn('npm', ['install']);
-    npmcp.on('close', function() {
-        child.kill();
-        startApp();
-        res.send('ok.');
+    spawn('npm', ['install']).on('close', function() {
+        spawn('coffee', ['-c', './routes/coffee.coffee']).on('close', function() {
+            if (child) {
+                child.kill();
+            }
+            startApp();
+            if (res) {
+                res.send('ok.');
+            }
+        });
     });
 }
 
@@ -35,7 +38,7 @@ function startApp()
 
 app.get('/', restartApp);
 app.post('/', restartApp);
-startApp();
+restartApp();
 http.createServer(app).listen(port, function(){
     console.log('Express server listening on port ' + port);
 });
