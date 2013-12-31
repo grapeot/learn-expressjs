@@ -1,4 +1,7 @@
 extends layout
 
+block head
+    link(rel='stylesheet' type='text/css' href='/pygmentize.css')
+
 block content
-    p= txt
+    div!= txt

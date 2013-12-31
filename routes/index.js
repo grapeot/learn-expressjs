@@ -65,7 +65,24 @@ module.exports = {
                 res.render('err', { message: 'Cannot find this entry.' });
                 return;
             }
-            res.render('gist_get', { txt: reply });
+            // use pygmentize to colorize the code
+            var pyg = spawn( "pygmentize",
+                [ "-l", "javascript",
+                "-f", "html",
+                "-O", "style=pastie",
+                "-P", "title=Snippet #" + id] );
+            var toWrite = "";
+            pyg.stdout.on( "data", function(data) {
+                if(data)
+                    toWrite = toWrite + data;
+            } );
+            pyg.on('exit', function() {
+                console.log(toWrite);
+                res.render('gist_get', { txt: toWrite });
+            });
+
+            pyg.stdin.write(reply);
+            pyg.stdin.end();
         });
     },
     'gist_create': function(req, res) {
