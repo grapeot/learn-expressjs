@@ -61,6 +61,7 @@ io.sockets.on('connection', function(sock) {
     console.log('Socket connected. Assigned id #' + sock.id + '.');
 
     sock.broadcast.emit('num', { num: sock.id });
+    sock.broadcast.emit('send', { user: 'System', message: 'A new user enters the chatroom.' });
     sock.on('send', function(data) {
         console.log(data);
         sock.broadcast.emit('send', data);
