@@ -64,6 +64,7 @@ io.sockets.on('connection', function(sock) {
     sock.broadcast.emit('send', { user: 'System', message: 'A new user enters the chatroom.' });
     sock.on('send', function(data) {
         console.log(data);
+        data.user = 'Anonymous' + sock.id;
         sock.broadcast.emit('send', data);
     });
     sock.on('disconnect', function() {
