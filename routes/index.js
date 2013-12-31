@@ -1,4 +1,4 @@
-var data = require('../data'),
+var data = require('./data'),
     path = require('path'),
     cp = require('child_process'),
     QRCode = require('qrcode'),
@@ -91,5 +91,9 @@ module.exports = {
             client.set(reply, txt);
             res.redirect('/gist/id/' + reply);
         });
+    },
+    
+    'chat': function(req, res) {
+        res.render('chat');
     }
 };

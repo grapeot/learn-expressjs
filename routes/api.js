@@ -1,4 +1,4 @@
-var data = require('../data');
+var data = require('./data');
 
 module.exports = {
     'edit': function(req, res) {

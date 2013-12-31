@@ -9,6 +9,8 @@
     "express": "3.4.4",
     "jade": "*",
     "qrcode": "*",
-    "redis": "*"
+    "redis": "*",
+    "socket.io": "*",
+    "underscore": "*"
   }
 }

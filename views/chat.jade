@@ -1,0 +1,48 @@
+extends layout
+
+block head
+    style.
+        .dwidth { width: 700px }
+    script(src='/socket.io/socket.io.js')
+
+block content
+    h2 Chat demo
+    p
+        span Currently there are 
+        span(id='pnum') 1
+        span  people online.
+    textarea(id='maintxt' rows='30' cols='100' class='dwidth')
+    br
+    input(type='text' class='dwidth' id='text')
+    br
+    input(type='submit' value='Send' onclick='send();')
+    br
+    br
+    div(id='status') Initialized. Connecting...
+
+    script.
+        var socket = io.connect('http://nobody.grapeot.me:3010/');
+        socket.on('connect', function(data) {
+            setStatus('Connected.');
+        });
+        socket.on('send', function(data) {
+            appendText(data.user + ': ' + data.message);
+        });
+        socket.on('num', function(data) {
+            document.getElementById('pnum').innerHTML = data.num;
+        });
+
+        function send() {
+            var txt = document.getElementById('text').value;
+            socket.emit('send', { user: 'anonymous', message: txt });
+        }
+
+        function setStatus(text) {
+            document.getElementById('status').innerHTML = text;
+        }
+
+        function appendText(text) {
+            var txtUI = document.getElementById('maintxt');
+            var txt = txtUI.value;
+            txtUI.value = txt + '\n' + text;
+        }

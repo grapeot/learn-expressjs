@@ -1,13 +1,18 @@
-var express = require('express');
-var routes = require('./routes'),
+var express = require('express'),
+    routes = require('./routes'),
     coffee = require('./routes/coffee'),
     api = require('./routes/api'),
+    _data = require('./routes/data'),
     http = require('http'),
     path = require('path'),
-    sys = require('sys');
-var child;
+    sys = require('sys'),
+    redis = require('redis'),
+    rclient = redis.createClient(),
+    _ = require('underscore');
 
-var app = express();
+var app = express(),
+    server = http.createServer(app),
+    io = require('socket.io').listen(server);
 
 // all environments
 app.set('port', process.env.PORT || 3010);
@@ -24,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 // set up the routes
@@ -41,7 +46,31 @@ app.get('/cross/ajax', routes.cross_index_ajax);
 app.get('/gist/', routes.gist_new);
 app.get('/gist/id/:id', routes.gist_get);
 app.get('/gist/create', routes.gist_create);
+app.get('/chat/', routes.chat);
 
-http.createServer(app).listen(app.get('port'), function(){
+// initialize socket.io
+_data.chat_num = 0;
+io.sockets.on('connection', function(sock) {
+    console.log('Connected.');
+    _data.chat_num++;
+    sock.id = _data.chat_num;
+    if (_data.socks == undefined) {
+        _data.socks = [];
+    }
+    _data.socks.push(sock);
+    console.log('Socket connected. Assigned id #' + sock.id + '.');
+
+    sock.broadcast.emit('num', { num: sock.id });
+    sock.on('send', function(data) {
+        console.log(data);
+        sock.broadcast.emit('send', data);
+    });
+    sock.on('disconnect', function() {
+        console.log('Socket #' + sock.id + ' Disconnected.');
+    });
+});
+
+
+server.listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
