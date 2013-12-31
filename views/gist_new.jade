@@ -1,0 +1,14 @@
+extends layout
+
+block head
+    script(type='text/javascript').
+        function submit() {
+            var txt = document.getElementById('text').value;
+            window.location.href = '/gist/create?txt=' + encodeURI(txt);
+        }
+
+block content
+    p Type in the snippet (we'll assume the language type as js)
+    textarea(id='text' cols='80' rows='20')
+    br
+    input(type='submit' onclick='submit();')

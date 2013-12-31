@@ -2,6 +2,8 @@ var data = require('../data'),
     path = require('path'),
     cp = require('child_process'),
     QRCode = require('qrcode'),
+    redis = require('redis'),
+    client = redis.createClient(),
     folk = cp.folk,
     exec = cp.exec,
     spawn = cp.spawn;
@@ -52,7 +54,26 @@ module.exports = {
     },
 
     'gist_new': function (req, res) {
+        res.render('gist_new');
     },
     'gist_get': function (req, res) {
+        var id = parseInt(req.params.id);
+        if (isNaN(id))
+            res.render('err', { message: 'Illegal ID.' });
+        client.get(id.toString(), function(err, reply) {
+            if (reply == null) {
+                res.render('err', { message: 'Cannot find this entry.' });
+                return;
+            }
+            res.render('gist_get', { txt: reply });
+        });
+    },
+    'gist_create': function(req, res) {
+        var txt = decodeURI(req.query.txt);
+        client.incr('latestid');
+        client.get('latestid', function(err, reply) {
+            client.set(reply, txt);
+            res.redirect('/gist/id/' + reply);
+        });
     }
 };
