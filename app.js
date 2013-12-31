@@ -67,6 +67,7 @@ io.sockets.on('connection', function(sock) {
     });
     sock.on('disconnect', function() {
         console.log('Socket #' + sock.id + ' Disconnected.');
+        _data.chat_num--;
     });
 });
 
