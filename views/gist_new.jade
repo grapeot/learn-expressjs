@@ -4,10 +4,14 @@ block head
     script(type='text/javascript').
         function submit() {
             var txt = document.getElementById('text').value;
-            window.location.href = '/gist/create?txt=' + encodeURI(txt);
+            window.location.href = '/gist/create?txt=' + encodeURIComponent(txt);
         }
 
 block content
+    p.
+        This is a demo about building a mini public gist system with node.js and redis.
+        Type in the js code snippets into the textbox, click submit and share the contents with your friends.
+        Syntax highlighting enabled.
     p Type in the snippet (we'll assume the language type as js)
     textarea(id='text' cols='80' rows='20')
     br
