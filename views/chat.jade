@@ -32,6 +32,13 @@ block content
             document.getElementById('pnum').innerHTML = data.num;
         });
 
+        document.getElementById('text').onkeydown = function (event) {
+            if (event.keyCode == 13) {
+                send();
+                document.getElementById('text').value = "";
+            }
+         };
+
         function send() {
             var txt = document.getElementById('text').value;
             socket.emit('send', { user: 'anonymous', message: txt });
